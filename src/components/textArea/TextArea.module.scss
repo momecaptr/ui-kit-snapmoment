@@ -1,0 +1,47 @@
+.boxTextArea {
+  width: 100%;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1.1px solid var(--light-900);
+
+  &:active {
+    border: 1.4px solid var(--light-100);
+  }
+
+  &:focus {
+    border-color: var(--light-100);
+  }
+
+  &:hover {
+    border-color: var(--accent-300);
+  }
+
+  &.error {
+    font-size: 14px;
+    color: var(--danger-500);
+    border-color: var(--danger-500);
+  }
+
+  &:disabled {
+    color: #808080;
+    background-color: #171717;
+    border-color: #171717;
+  }
+}
+
+.resize {
+  resize: none;
+  padding: 10px;
+}
+
+.label {
+  margin-bottom: 7px;
+  font-size: 14px;
+  color: var(--light-900);
+}
+
+.counterValue {
+  font-size: 12px;
+  color: var(--light-900);
+  text-align: end;
+}
