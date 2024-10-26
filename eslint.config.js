@@ -41,8 +41,6 @@ export default [
       '@typescript-eslint/strict-boolean-expressions': 'off', // Отключаем строгие булевые выражения
       '@typescript-eslint/consistent-type-assertions': 'off', // Отключаем правило для приведения типов
       '@typescript-eslint/explicit-function-return-type': 'off', // Отключаем требование явного указания типа возвращаемого значения
-
-      // ? Добавил
       '@typescript-eslint/no-explicit-any': 'off', // Отключаем предупреждение для any
 
       // Прочие настройки
