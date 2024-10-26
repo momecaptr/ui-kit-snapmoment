@@ -33,6 +33,7 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      // ! 'react/react-in-jsx-scope': 'off', // Отключаем требование импорта React в JSX-файлах
       'react/display-name': 'off', // Отключаем обязательное указание displayName для компонентов
 
       // Настройки для TypeScript
