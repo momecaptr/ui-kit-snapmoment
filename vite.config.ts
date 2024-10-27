@@ -4,6 +4,12 @@ import { defineConfig } from 'vite'
 import packageJson from './package.json'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'), // добавляем алиас @ для папки src
+      // Добавляйте другие алиасы при необходимости
+    },
+  },
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
@@ -22,6 +28,7 @@ export default defineConfig({
         // for externalized deps
       },
     },
+
     target: 'esnext',
     sourcemap: true
   },
