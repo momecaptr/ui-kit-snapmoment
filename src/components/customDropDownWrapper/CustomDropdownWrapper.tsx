@@ -80,7 +80,11 @@ export const CustomDropdownWrapper = forwardRef<HTMLButtonElement, CustomDropdow
           <DropdownMenu.Content
             onClick={(event) => {
               event.stopPropagation()
-              stayOpen ? setOpen(true) : setOpen(false)
+              if(stayOpen) {
+                setOpen(true)
+              } else {
+                setOpen(false)
+              }
             }}
             align={align}
             className={clsx(s.dropdownMenuContent, className)}
