@@ -1,25 +1,26 @@
-import { CSSProperties, ComponentPropsWithoutRef, ReactNode, forwardRef, useState } from 'react'
+import { CSSProperties, ComponentPropsWithoutRef, ReactNode, forwardRef, useState } from 'react';
 
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { clsx } from 'clsx'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { clsx } from 'clsx';
 
-import s from './CustomDropDownWrapper.module.scss'
+import s from './CustomDropDownWrapper.module.scss';
 
-import { Typography, TypographyVariant } from '../typography/Typography'
+import { Typography, TypographyVariant } from '../typography/Typography';
 
 type CustomDropdownWrapperProps = {
-  align?: 'center' | 'end' | 'start'
-  children?: ReactNode
-  className?: string
-  classNameTriggerActive?: string
-  isArrow?: boolean
-  side?: 'bottom' | 'left' | 'right' | 'top'
-  sideOffset?: number
-  stayOpen?: boolean
-  style?: CSSProperties
-  trigger: ReactNode
-  triggerActive?: ReactNode
-} & ComponentPropsWithoutRef<typeof DropdownMenu.Root>
+  align?: 'center' | 'end' | 'start';
+  children?: ReactNode;
+  className?: string;
+  classNameArrow?: string;
+  classNameTriggerActive?: string;
+  isArrow?: boolean;
+  side?: 'bottom' | 'left' | 'right' | 'top';
+  sideOffset?: number;
+  stayOpen?: boolean;
+  style?: CSSProperties;
+  trigger: ReactNode;
+  triggerActive?: ReactNode;
+} & ComponentPropsWithoutRef<typeof DropdownMenu.Root>;
 
 /**
  * Компонент `CustomDropdownWrapper` — настраиваемый выпадающий список, который может содержать
@@ -29,6 +30,7 @@ type CustomDropdownWrapperProps = {
  * @param {ReactNode} children - Дочерние элементы, которые будут отображаться в выпадающем меню.
  * @param {string} className - Дополнительные классы для стилизации контейнера выпадающего меню.
  * @param {string} classNameTriggerActive - Классы для стилизации триггера, когда меню открыто.
+ * @param {string} classNameArrow - Классы для стилизации стрелки, когда меню открыто. Фон задавать через fill, обводку - stroke
  * @param {boolean} isArrow - Определяет, будет ли стрелка отображаться на выпадающем меню (по умолчанию `true`).
  * @param {'bottom' | 'left' | 'right' | 'top'} side - Сторона, с которой открывается выпадающее меню.
  * @param {number} sideOffset - Отступ между триггером и выпадающим меню (по умолчанию `8`).
@@ -43,6 +45,7 @@ export const CustomDropdownWrapper = forwardRef<HTMLButtonElement, CustomDropdow
       align = 'center',
       children,
       className,
+      classNameArrow,
       classNameTriggerActive,
       isArrow = false,
       side = 'bottom',
@@ -54,22 +57,22 @@ export const CustomDropdownWrapper = forwardRef<HTMLButtonElement, CustomDropdow
     }: CustomDropdownWrapperProps,
     ref
   ) => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
     // const triggerCondition = !triggerActive ? trigger : open ? triggerActive : trigger;
     const triggerCondition = () => {
       if (!triggerActive) {
-        return trigger
+        return trigger;
       } else {
-        return open ? triggerActive : trigger
+        return open ? triggerActive : trigger;
       }
-    }
+    };
 
     const classNames = {
       arrow: clsx(s.arrow),
-      arrowWrap: clsx(s.arrowWrap),
+      arrowWrap: clsx(s.arrowWrap, classNameArrow),
       content: clsx(s.dropdownMenuContent, className),
       itemsWrap: clsx(s.itemsWrap)
-    }
+    };
 
     return (
       <DropdownMenu.Root onOpenChange={setOpen} open={open}>
@@ -79,12 +82,8 @@ export const CustomDropdownWrapper = forwardRef<HTMLButtonElement, CustomDropdow
         <DropdownMenu.Portal>
           <DropdownMenu.Content
             onClick={(event) => {
-              event.stopPropagation()
-              if(stayOpen) {
-                setOpen(true)
-              } else {
-                setOpen(false)
-              }
+              event.stopPropagation();
+              stayOpen ? setOpen(true) : setOpen(false);
             }}
             align={align}
             className={clsx(s.dropdownMenuContent, className)}
@@ -92,23 +91,23 @@ export const CustomDropdownWrapper = forwardRef<HTMLButtonElement, CustomDropdow
             sideOffset={sideOffset}
             style={style}
           >
-            {isArrow && <DropdownMenu.Arrow className={classNames.arrowWrap} />}
+            {isArrow && <DropdownMenu.Arrow className={classNames.arrowWrap} height={10} width={20} />}
             <div className={classNames.itemsWrap}>
               {children} {/* Рендерим children напрямую */}
             </div>
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
-    )
+    );
   }
-)
+);
 
 type CustomDropdownItemProps = {
-  children?: ReactNode
-  className?: string
-  disabled?: boolean
-  style?: CSSProperties
-} & ComponentPropsWithoutRef<typeof DropdownMenu.Item>
+  children?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  style?: CSSProperties;
+} & ComponentPropsWithoutRef<typeof DropdownMenu.Item>;
 
 /**
  * Компонент `CustomDropdownItem` — элемент выпадающего меню, представляющий отдельный пункт.
@@ -119,30 +118,30 @@ type CustomDropdownItemProps = {
  * @param {CSSProperties} style - Дополнительные стили для элемента меню.
  */
 export const CustomDropdownItem = ({
-  children,
-  className,
-  disabled,
-  onSelect,
-  style,
-  ...restProps
-}: CustomDropdownItemProps) => {
+                                     children,
+                                     className,
+                                     disabled,
+                                     onSelect,
+                                     style,
+                                     ...restProps
+                                   }: CustomDropdownItemProps) => {
   const classNames = {
     item: clsx(s.dropdownMenuItem, className)
-  }
+  };
 
   return (
     <DropdownMenu.Item className={classNames.item} disabled={disabled} onSelect={onSelect} style={style} {...restProps}>
       {children}
     </DropdownMenu.Item>
-  )
-}
+  );
+};
 
 type CustomDropdownItemWithIconProps = {
-  icon?: ReactNode
-  title: string
-  variant?: TypographyVariant
+  icon?: ReactNode;
+  title: string;
+  variant?: TypographyVariant;
 } & ComponentPropsWithoutRef<typeof DropdownMenu.Item> &
-Omit<CustomDropdownItemProps, 'children'>
+  Omit<CustomDropdownItemProps, 'children'>;
 /**
  * Компонент `CustomDropdownItemWithIcon` — элемент выпадающего меню с иконкой и заголовком.
  *
@@ -155,25 +154,25 @@ Omit<CustomDropdownItemProps, 'children'>
  * @param {TypographyVariant} variant - Вариант стилизации текста заголовка.
  */
 export const CustomDropdownItemWithIcon = ({
-  className,
-  disabled,
-  icon,
-  onSelect,
-  style,
-  title,
-  variant,
-  ...rest
-}: CustomDropdownItemWithIconProps) => {
+                                             className,
+                                             disabled,
+                                             icon,
+                                             onSelect,
+                                             style,
+                                             title,
+                                             variant,
+                                             ...rest
+                                           }: CustomDropdownItemWithIconProps) => {
   const classNames = {
     icon: clsx(s.itemIcon),
     item: clsx(s.dropdownMenuItem, className)
-  }
+  };
 
   return (
     <DropdownMenu.Item
       className={classNames.item}
       disabled={disabled}
-      onClick={(event) => { event.stopPropagation() }}
+      onClick={(event) => event.stopPropagation()}
       onSelect={onSelect}
       style={style}
       {...rest}
@@ -181,5 +180,5 @@ export const CustomDropdownItemWithIcon = ({
       <div className={classNames.icon}>{icon}</div>
       <Typography variant={variant ?? 'large'}>{title}</Typography>
     </DropdownMenu.Item>
-  )
-}
+  );
+};
