@@ -1,6 +1,5 @@
 export * from './button'
 export * from './card'
-export * from './chart'
 export * from './checkbox'
 export * from './wrapper'
 export * from './typography'
