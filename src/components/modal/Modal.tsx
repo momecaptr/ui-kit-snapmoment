@@ -60,7 +60,8 @@ export const Modal = ({
             </Typography>
             {nextButton}
             <Dialog.Close asChild>
-              <button aria-label={'Close'} className={clsx(s.closeBtn, { [s.hidden]: !showCloseButton })}>
+              {/*<button aria-label={'Close'} className={clsx(s.closeBtn, { [s.hidden]: !showCloseButton })}>*/}
+              <button className={clsx(s.closeBtn, { [s.hidden]: !showCloseButton })}>
                 <CloseOutline />
               </button>
             </Dialog.Close>
