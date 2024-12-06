@@ -74,6 +74,7 @@
 .selectContent {
   overflow-y: auto;
   justify-content: start;
+  z-index: 99;
 
   width: var(--radix-select-trigger-width);
   max-height: 200px;
