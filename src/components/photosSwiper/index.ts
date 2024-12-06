@@ -1,1 +1,0 @@
-export { PhotosSwiper } from './PhotosSwiper'
