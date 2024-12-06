@@ -18,18 +18,6 @@ import 'swiper/scss/pagination';
 
 import s from './PhotosSwiper.module.scss';
 
-let Image: any;
-
-if (typeof window !== 'undefined') {
-  try {
-    // Проверяем, если это Next.js приложение
-    Image = require('next/image').default;
-  } catch (error) {
-    // Если это не Next.js, используем стандартный тег img
-    Image = (props: any) => <img {...props} />;
-  }
-}
-
 // Ниже экстенд от этого типа, что гарантирует, что передаваемый массив объектов будет принят без ошибок, если в нем есть свойство url
 type HasUrl = { url: null | string | undefined };
 
@@ -117,14 +105,13 @@ export const PhotosSwiper = <T extends HasUrl>({
       >
         {photos.map((photo, i) => (
           <SwiperSlide className={clsx(s.swiperSlide, classNameSwiperSlide)} key={photo.url || i}>
-            <Image
+            <img
               alt={`post photo ${i}`}
               className={classNameImage}
               height={100}
               src={photo.url || ''}
               style={styles ? { filter: styles } : {}}
               width={100}
-              unoptimized
             />
           </SwiperSlide>
         ))}
