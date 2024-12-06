@@ -17,13 +17,14 @@ interface Props {
   onValueChange?: (items: string) => void
   selectOptions: SelectOptionsType[]
   value?: string
-  initialValue?: string
+  initialValue?: string,
+  classNameContent?: string
 }
 
-export const SelectUI = ({ className, disabled, name, onValueChange, selectOptions, value, initialValue = 'Select an option' }: Props) => {
+export const SelectUI = ({ className, disabled, name, onValueChange, selectOptions, value, initialValue = 'Select an option', classNameContent }: Props) => {
   const selectClasses = {
     button: clsx(s.button, s.className),
-    content: clsx(s.selectContent),
+    content: clsx(s.selectContent, classNameContent),
     icon: clsx(s.selectIcon, className && s.className),
     root: clsx(s.selectRoot),
     selectItem: clsx(s.selectItem, s.className),
